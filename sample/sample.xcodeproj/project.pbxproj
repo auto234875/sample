@@ -21,6 +21,7 @@
 		527F294D1A00AA4800E6F4EA /* sampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 527F294C1A00AA4800E6F4EA /* sampleTests.m */; };
 		527F295A1A00AA8800E6F4EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F29591A00AA8800E6F4EA /* QuartzCore.framework */; };
 		527F295D1A00AAF900E6F4EA /* animationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527F295C1A00AAF900E6F4EA /* animationViewController.m */; };
+		527F295F1A00B0FD00E6F4EA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F295E1A00B0FD00E6F4EA /* GLKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		527F29591A00AA8800E6F4EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		527F295B1A00AAF900E6F4EA /* animationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animationViewController.h; sourceTree = "<group>"; };
 		527F295C1A00AAF900E6F4EA /* animationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = animationViewController.m; sourceTree = "<group>"; };
+		527F295E1A00B0FD00E6F4EA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527F295F1A00B0FD00E6F4EA /* GLKit.framework in Frameworks */,
 				527F295A1A00AA8800E6F4EA /* QuartzCore.framework in Frameworks */,
 				527F292A1A00AA4700E6F4EA /* CoreGraphics.framework in Frameworks */,
 				527F292C1A00AA4700E6F4EA /* UIKit.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		527F29261A00AA4700E6F4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				527F295E1A00B0FD00E6F4EA /* GLKit.framework */,
 				527F29591A00AA8800E6F4EA /* QuartzCore.framework */,
 				527F29271A00AA4700E6F4EA /* Foundation.framework */,
 				527F29291A00AA4700E6F4EA /* CoreGraphics.framework */,
@@ -449,6 +453,7 @@
 				527F29521A00AA4800E6F4EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		527F29531A00AA4800E6F4EA /* Build configuration list for PBXNativeTarget "sampleTests" */ = {
 			isa = XCConfigurationList;
@@ -457,6 +462,7 @@
 				527F29551A00AA4800E6F4EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

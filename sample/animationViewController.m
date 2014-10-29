@@ -7,6 +7,10 @@
 //
 #import "animationViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <GLKit/GLKit.h>
+
+#define LIGHT_DIRECTION 0, 1, -0.5 
+#define AMBIENT_LIGHT 0.5
 
 @interface animationViewController ()
 @property (nonatomic,strong) NSMutableArray *faces;
@@ -19,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor whiteColor];
+    self.view.backgroundColor=[UIColor lightGrayColor];
     [self createFaces];
     
     CATransform3D perspective=CATransform3DIdentity;
@@ -50,8 +54,23 @@
     transform=CATransform3DMakeTranslation(0, 0, -50);
     transform=CATransform3DRotate(transform, M_PI, 0, 1, 0);
     [self addFace:5 withTransform:transform];
+}
+
+-(void)applyLightingToFace:(CALayer*)face{
+    CALayer *layer=[CALayer layer];
+    layer.frame=face.bounds;
+    [face addSublayer:layer];
     
-    
+    CATransform3D transform= face.transform;
+    GLKMatrix4 matrix4 = *(GLKMatrix4 *)&transform; GLKMatrix3 matrix3 = GLKMatrix4GetMatrix3(matrix4);
+    //get face normal
+    GLKVector3 normal = GLKVector3Make(0, 0, 1);
+    normal = GLKMatrix3MultiplyVector3(matrix3, normal); normal = GLKVector3Normalize(normal);
+    //get dot product with light direction
+    GLKVector3 light = GLKVector3Normalize(GLKVector3Make(LIGHT_DIRECTION)); float dotProduct = GLKVector3DotProduct(light, normal);
+    //set lighting layer opacity
+    CGFloat shadow = 1 + dotProduct - AMBIENT_LIGHT;
+    UIColor *color = [UIColor colorWithWhite:0 alpha:shadow]; layer.backgroundColor = color.CGColor;
     
     
     
@@ -65,12 +84,12 @@
 -(void)createFaces{
     self.faces=[[NSMutableArray alloc] init];
     
-    [self makeFaceWithLength:100.0f andColor:[UIColor redColor] thenInsertIntoArray:self.faces];
-    [self makeFaceWithLength:100.0f andColor:[UIColor cyanColor] thenInsertIntoArray:self.faces];
-    [self makeFaceWithLength:100.0f andColor:[UIColor blueColor] thenInsertIntoArray:self.faces];
-    [self makeFaceWithLength:100.0f andColor:[UIColor yellowColor] thenInsertIntoArray:self.faces];
-    [self makeFaceWithLength:100.0f andColor:[UIColor purpleColor] thenInsertIntoArray:self.faces];
-    [self makeFaceWithLength:100.0f andColor:[UIColor orangeColor] thenInsertIntoArray:self.faces];
+    [self makeFaceWithLength:100.0f andColor:[UIColor whiteColor] thenInsertIntoArray:self.faces];
+    [self makeFaceWithLength:100.0f andColor:[UIColor whiteColor] thenInsertIntoArray:self.faces];
+    [self makeFaceWithLength:100.0f andColor:[UIColor whiteColor] thenInsertIntoArray:self.faces];
+    [self makeFaceWithLength:100.0f andColor:[UIColor whiteColor] thenInsertIntoArray:self.faces];
+    [self makeFaceWithLength:100.0f andColor:[UIColor whiteColor] thenInsertIntoArray:self.faces];
+    [self makeFaceWithLength:100.0f andColor:[UIColor whiteColor] thenInsertIntoArray:self.faces];
     
 }
 -(void)addFace:(NSInteger)index withTransform:(CATransform3D)transform{
@@ -79,11 +98,12 @@
     CGSize containerSize= self.view.bounds.size;
     face.center=CGPointMake(containerSize.width/2.0, containerSize.height/2.0);
     
-    [UIView animateWithDuration:20
+    [UIView animateWithDuration:10
                           delay:0.00
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
                          face.layer.transform=transform;
+                         [self applyLightingToFace:face.layer];
                      } completion:^(BOOL finished) {
                      }];
 }
