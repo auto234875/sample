@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <GLKit/GLKit.h>
 
-#define LIGHT_DIRECTION 0, 1, -0.5 
+#define LIGHT_DIRECTION 0, 1, -0.5
 #define AMBIENT_LIGHT 0.5
 
 @interface animationViewController ()
@@ -62,15 +62,19 @@
     [face addSublayer:layer];
     
     CATransform3D transform= face.transform;
-    GLKMatrix4 matrix4 = *(GLKMatrix4 *)&transform; GLKMatrix3 matrix3 = GLKMatrix4GetMatrix3(matrix4);
+    GLKMatrix4 matrix4 = *(GLKMatrix4 *)&transform;
+    GLKMatrix3 matrix3 = GLKMatrix4GetMatrix3(matrix4);
     //get face normal
     GLKVector3 normal = GLKVector3Make(0, 0, 1);
-    normal = GLKMatrix3MultiplyVector3(matrix3, normal); normal = GLKVector3Normalize(normal);
+    normal = GLKMatrix3MultiplyVector3(matrix3, normal);
+    normal = GLKVector3Normalize(normal);
     //get dot product with light direction
-    GLKVector3 light = GLKVector3Normalize(GLKVector3Make(LIGHT_DIRECTION)); float dotProduct = GLKVector3DotProduct(light, normal);
+    GLKVector3 light = GLKVector3Normalize(GLKVector3Make(LIGHT_DIRECTION));
+    float dotProduct = GLKVector3DotProduct(light, normal);
     //set lighting layer opacity
     CGFloat shadow = 1 + dotProduct - AMBIENT_LIGHT;
-    UIColor *color = [UIColor colorWithWhite:0 alpha:shadow]; layer.backgroundColor = color.CGColor;
+    UIColor *color = [UIColor colorWithWhite:0 alpha:shadow];
+    layer.backgroundColor = color.CGColor;
     
     
     
